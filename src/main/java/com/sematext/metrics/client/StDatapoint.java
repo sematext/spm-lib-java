@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 /**
  * <p>Represents datapoint, which contains next parameters:</p>.
@@ -26,7 +26,7 @@ package com.sematext.spm.client;
  *   <li><b>Aggregation type</b> - aggregation type of datapoint. 'sum', 'min', 'max' or 'avg' (required)</li>
  * </ul>
  */
-public class SpmDatapoint {
+public class StDatapoint {
   private Long timestamp;
   private String name;
   private String filter1;
@@ -34,7 +34,7 @@ public class SpmDatapoint {
   private Double value;
   private AggType aggregationType;
 
-  private SpmDatapoint() { }
+  private StDatapoint() { }
 
   /**
    * @return timestamp
@@ -79,7 +79,7 @@ public class SpmDatapoint {
    * Datapoint's builder.
    */
   public static class Builder {
-    private SpmDatapoint datapoint = new SpmDatapoint();
+    private StDatapoint datapoint = new StDatapoint();
 
     private Builder(String name) {
       datapoint.name = name;
@@ -168,7 +168,7 @@ public class SpmDatapoint {
      * @throws IllegalArgumentException if aggregation type ({@link #aggType(AggType)} or value {@link #value(Double)}
      * is not set
      */
-    public SpmDatapoint build() {
+    public StDatapoint build() {
       if (datapoint.timestamp == null) {
         datapoint.timestamp = System.currentTimeMillis();
       }
@@ -197,7 +197,7 @@ public class SpmDatapoint {
 
   @Override
   public String toString() {
-    return new StringBuilder("SpmDatapoint [")
+    return new StringBuilder("StDatapoint [")
         .append("name = ").append(name).append(", ")
         .append("timestamp = ").append(timestamp).append(", ")
         .append("value = ").append(value).append(", ")

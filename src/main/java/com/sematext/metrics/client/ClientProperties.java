@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.util.concurrent.ExecutorService;
 
 /**
  * Client properties.
  */
-public final class SpmProperties {
+public final class ClientProperties {
   private final String token;
   private final String url;
   private final ExecutorService executor;
@@ -34,18 +34,18 @@ public final class SpmProperties {
    * @param executor executor service
    * @throws IllegalArgumentException when token is not defined
    */
-  public SpmProperties(String token, String url, ExecutorService executor) {
+  public ClientProperties(String token, String url, ExecutorService executor) {
     if (token == null) {
       throw new IllegalArgumentException("Token should be defined");
     }
     this.token = token;
     if (url == null) {
-      this.url = SpmConfig.SPM_RECEIVER_URL;
+      this.url = Config.SPM_RECEIVER_URL;
     } else {
       this.url = url;
     }
     if (executor == null) {
-      this.executor = SpmConfig.newThreadPool();
+      this.executor = Config.newThreadPool();
     } else {
       this.executor = executor;
     }

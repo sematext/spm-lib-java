@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
-final class SpmDatapointValidator {
-  private SpmDatapointValidator() { }
+final class StDatapointValidator {
+  private StDatapointValidator() { }
 
   private static final int MAX_STRING_LENGTH = 255;
 
@@ -26,7 +26,7 @@ final class SpmDatapointValidator {
     }
   }
 
-  static void validate(SpmDatapoint datapoint) {
+  static void validate(StDatapoint datapoint) {
     checkBounds("Metric name", datapoint.getName());
     checkBounds("Metric filter1", datapoint.getFilter1());
     checkBounds("Metric filter2", datapoint.getFilter2());

@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.sematext.spm.client.SpmRawFormat.serialize;
+import static com.sematext.metrics.client.RawFormat.serialize;
 import static junit.framework.Assert.assertEquals;
 
-public class SpmRawFormatTest {
+public class RawFormatTest {
   @Test
   public void testSerializeDatapoint() {
-    String serialized = serialize(SpmDatapoint.name("users_registered")
+    String serialized = serialize(StDatapoint.name("users_registered")
         .filter1("free_account")
         .filter2("male")
         .timestamp(123L)
@@ -35,7 +35,7 @@ public class SpmRawFormatTest {
 
     assertEquals("123\tusers_registered\t1.0\tavg\tfree_account\tmale", serialized);
 
-    serialized = serialize(SpmDatapoint.name("users_registered")
+    serialized = serialize(StDatapoint.name("users_registered")
         .value(1d)
         .filter1("free_account")
         .timestamp(123L)
@@ -43,7 +43,7 @@ public class SpmRawFormatTest {
 
     assertEquals("123\tusers_registered\t1.0\tmin\tfree_account\t", serialized);
 
-    serialized = serialize(SpmDatapoint.name("users_registered")
+    serialized = serialize(StDatapoint.name("users_registered")
         .value(1d)
         .filter2("male")
         .timestamp(123L)
@@ -51,7 +51,7 @@ public class SpmRawFormatTest {
 
     assertEquals("123\tusers_registered\t1.0\tmax\t\tmale", serialized);
 
-    serialized = serialize(SpmDatapoint.name("users_registered")
+    serialized = serialize(StDatapoint.name("users_registered")
         .value(1d)
         .timestamp(123L)
         .useSumAggregation().build());
@@ -61,7 +61,7 @@ public class SpmRawFormatTest {
 
   @Test
   public void testSerializeDatapoints() {
-    SpmDatapoint datapoint1 = SpmDatapoint.name("users_registered")
+    StDatapoint datapoint1 = StDatapoint.name("users_registered")
         .filter1("free_account")
         .filter2("male")
         .timestamp(123L)
@@ -70,7 +70,7 @@ public class SpmRawFormatTest {
 
     String datapoint1Serialized = "123\tusers_registered\t1.0\tavg\tfree_account\tmale";
 
-    SpmDatapoint datapoint2 = SpmDatapoint.name("users_registered")
+    StDatapoint datapoint2 = StDatapoint.name("users_registered")
         .value(1d)
         .filter1("free_account")
         .timestamp(123L)
@@ -78,7 +78,7 @@ public class SpmRawFormatTest {
 
     String datapoint2Serialized = "123\tusers_registered\t1.0\tmin\tfree_account\t";
 
-    SpmDatapoint datapoint3 = SpmDatapoint.name("users_registered")
+    StDatapoint datapoint3 = StDatapoint.name("users_registered")
         .value(1d)
         .filter2("male")
         .timestamp(123L)
@@ -86,7 +86,7 @@ public class SpmRawFormatTest {
 
     String datapoint3Serialized = "123\tusers_registered\t1.0\tmax\t\tmale";
 
-    assertEquals("", serialize(Collections.<SpmDatapoint>emptyList()));
+    assertEquals("", serialize(Collections.<StDatapoint>emptyList()));
 
     assertEquals(datapoint1Serialized, serialize(Arrays.asList(datapoint1)));
 

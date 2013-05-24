@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-final class SpmUtil {
-  private SpmUtil() { }
+final class Util {
+  private Util() { }
 
   static <T> List<List<T>> partition(List<T> list, int size) {
     if (size <= 0) {

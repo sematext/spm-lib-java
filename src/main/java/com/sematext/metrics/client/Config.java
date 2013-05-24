@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-final class SpmConfig {
-  private static final String USER_AGENT_NAME = "spm-lib-java";
+final class Config {
+  private static final String USER_AGENT_NAME = "sematext-metrics-java";
   static final String SPM_RECEIVER_URL = "http://spm-receiver.sematext.com/receiver/custom/receive.raw";
   static final int MAX_DATAPOINTS_PER_REQUEST = 100;
   static final String USER_AGENT;
@@ -29,7 +29,7 @@ final class SpmConfig {
   static {
     Properties properties = new Properties();
     try {
-      properties.load(SpmConfig.class.getResourceAsStream("/spm-lib-java.properties"));
+      properties.load(Config.class.getResourceAsStream("/sematext-metrics.properties"));
     } catch (IOException e) {
       //ignore
     } catch (NullPointerException e) {

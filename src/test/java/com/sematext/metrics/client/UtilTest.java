@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.junit.Test;
 
-final class SpmLogger {
-  private static final Logger LOG = Logger.getLogger("spm-lib-java");
+import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
-  static {
-    LOG.setLevel(Level.OFF);
-  }
-
-  static void setEnabled(boolean enabled) {
-    LOG.setLevel(enabled ? Level.WARNING : Level.OFF);
-  }
-
-  static Logger getLogger() {
-    return LOG;
+public class UtilTest {
+  @Test
+  public void testPartition() {
+    assertEquals(asList(), Util.partition(asList(), 10));
+    assertEquals(asList(asList(1, 2, 3, 4, 5)), Util.partition(asList(1, 2, 3, 4, 5), 10));
+    assertEquals(asList(asList(1, 2, 3), asList(4, 5)), Util.partition(asList(1, 2, 3, 4, 5), 3));
   }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,35 +26,35 @@ import java.util.concurrent.ExecutorService;
  * <p>Basic Usage:</p>
  *
  * <pre>
- *   SpmClient.initialize("[your token]");
+ *   SematextClient.initialize("[your token]");
  *
- *   SpmDatapoint datapoint = SpmDatapoint.name("registrations")
+ *   StDatapoint datapoint = StDatapoint.name("registrations")
  *       .filter1("main-page")
  *       .filter2("free")
  *       .value(1d)
  *       .aggType(AggType.SUM).build();
  *
- *   SpmClient.client().send(datapoint);
+ *   SematextClient.client().send(datapoint);
  * </pre>
  *
  * <p>Using client with different tokens:</p>
  *
  * <pre>
- *   SpmClient jvmApp = SpmClient.newInstance("[jvm_app_token]");
- *   SpmClient solrApp = SpmClient.newInstance("[solr_app_token]");
+ *   SematextClient jvmApp = SematextClient.newInstance("[jvm_app_token]");
+ *   SematextClient solrApp = SematextClient.newInstance("[solr_app_token]");
  *
  *   jvmApp.send(...);
  *
  *   solrApp.send(...)
  * </pre>
  */
-public class SpmClient {
-  private static SpmClient INSTANCE;
+public class SematextClient {
+  private static SematextClient INSTANCE;
 
-  private SpmSender sender;
+  private DatapointsSender sender;
 
-  private SpmClient(SpmProperties properties) {
-    this.sender = new SpmSender(properties);
+  private SematextClient(ClientProperties properties) {
+    this.sender = new DatapointsSender(properties);
   }
 
   /**
@@ -62,8 +62,8 @@ public class SpmClient {
    * @param datapoint datapoint
    * @throws IllegalArgumentException if datapoint is invalid
    */
-  public void send(SpmDatapoint datapoint) {
-    SpmDatapointValidator.validate(datapoint);
+  public void send(StDatapoint datapoint) {
+    StDatapointValidator.validate(datapoint);
     sender.send(Collections.singletonList(datapoint));
   }
 
@@ -72,9 +72,9 @@ public class SpmClient {
    * @param datapoints datapoints
    * @throws IllegalArgumentException if one of datapoints is invalid
    */
-  public void send(List<SpmDatapoint> datapoints) {
-    for (SpmDatapoint metric : datapoints) {
-      SpmDatapointValidator.validate(metric);
+  public void send(List<StDatapoint> datapoints) {
+    for (StDatapoint metric : datapoints) {
+      StDatapointValidator.validate(metric);
     }
     sender.send(datapoints);
   }
@@ -83,26 +83,26 @@ public class SpmClient {
    * Enable logging. Client uses {@link java.util.logging.Logger} to log failure sending attempts.
    */
   public static void enableLogging() {
-    SpmLogger.setEnabled(true);
+    StLogger.setEnabled(true);
   }
 
   /**
    * Disable logging.
    */
   public static void disableLogging() {
-    SpmLogger.setEnabled(false);
+    StLogger.setEnabled(false);
   }
 
   /**
    * Get client instance.
    * @return client
    * @throws IllegalStateException if client is not initialized yet.
-   * {@link #initialize(String)}, {@link #initialize(SpmProperties)}, {@link #initialize(String, ExecutorService)}.
+   * {@link #initialize(String)}, {@link #initialize(ClientProperties)}, {@link #initialize(String, ExecutorService)}.
    */
-  public static SpmClient client() {
-    SpmClient client = INSTANCE;
+  public static SematextClient client() {
+    SematextClient client = INSTANCE;
     if (client == null) {
-      throw new IllegalStateException("SpmClient not initialized (you should call SpmClient.initialize method).");
+      throw new IllegalStateException("SematextClient not initialized (you should call SematextClient.initialize method).");
     }
     return client;
   }
@@ -112,7 +112,7 @@ public class SpmClient {
    * @param properties properties
    * @throws IllegalArgumentException when properties is {@code null}
    */
-  public static void initialize(SpmProperties properties) {
+  public static void initialize(ClientProperties properties) {
     if (properties == null) {
       throw new IllegalArgumentException("Properties should be defined");
     }
@@ -132,7 +132,7 @@ public class SpmClient {
     if (executor == null) {
       throw new IllegalArgumentException("Executor should be defined.");
     }
-    initialize(new SpmProperties(token, null, executor));
+    initialize(new ClientProperties(token, null, executor));
   }
 
   /**
@@ -144,7 +144,7 @@ public class SpmClient {
     if (token == null) {
       throw new IllegalArgumentException("Token should be defined.");
     }
-    initialize(new SpmProperties(token, null, null));
+    initialize(new ClientProperties(token, null, null));
   }
 
   /**
@@ -153,11 +153,11 @@ public class SpmClient {
    * @return new client instance
    * @throws IllegalArgumentException when properties is {@code null}
    */
-  public static SpmClient newInstance(SpmProperties properties) {
+  public static SematextClient newInstance(ClientProperties properties) {
     if (properties == null) {
       throw new IllegalArgumentException("Properties should be defined.");
     }
-    return new SpmClient(properties);
+    return new SematextClient(properties);
   }
 
   /**
@@ -167,14 +167,14 @@ public class SpmClient {
    * @return new client instance
    * @throws IllegalArgumentException when token or executor is {@code null}
    */
-  public static SpmClient newInstance(String token, ExecutorService executor) {
+  public static SematextClient newInstance(String token, ExecutorService executor) {
     if (token == null) {
       throw new IllegalArgumentException("Token should be defined.");
     }
     if (executor == null) {
       throw new IllegalArgumentException("Executor should be defined.");
     }
-    return new SpmClient(new SpmProperties(token, null, executor));
+    return new SematextClient(new ClientProperties(token, null, executor));
   }
 
   /**
@@ -183,10 +183,10 @@ public class SpmClient {
    * @return new client instance
    * @throws IllegalArgumentException when token or executor is {@code null}
    */
-  public static SpmClient newInstance(String token) {
+  public static SematextClient newInstance(String token) {
     if (token == null) {
       throw new IllegalArgumentException("Token should be defined.");
     }
-    return newInstance(new SpmProperties(token, null, null));
+    return newInstance(new ClientProperties(token, null, null));
   }
 }

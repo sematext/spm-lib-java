@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class SpmDatapointTest {
+public class StDatapointTest {
 
-  private static void assertValid(SpmDatapoint.Builder builder) {
+  private static void assertValid(StDatapoint.Builder builder) {
     try {
       builder.build();
     } catch (IllegalArgumentException e) {
@@ -30,7 +30,7 @@ public class SpmDatapointTest {
     }
   }
 
-  private static void assertInvalid(SpmDatapoint.Builder builder) {
+  private static void assertInvalid(StDatapoint.Builder builder) {
     try {
       builder.build();
       fail("Datapoint should be invalid.");
@@ -39,21 +39,21 @@ public class SpmDatapointTest {
 
   @Test
   public void testBuild() {
-    assertValid(SpmDatapoint.name("custom").value(1d).useAvgAggregation());
+    assertValid(StDatapoint.name("custom").value(1d).useAvgAggregation());
 
-    assertInvalid(SpmDatapoint.name("custom").value(1d));
-    assertInvalid(SpmDatapoint.name("custom").useAvgAggregation());
-    assertInvalid(SpmDatapoint.name("custom").aggType(null));
+    assertInvalid(StDatapoint.name("custom").value(1d));
+    assertInvalid(StDatapoint.name("custom").useAvgAggregation());
+    assertInvalid(StDatapoint.name("custom").aggType(null));
 
-    assertNotNull("Timestamp should be set", SpmDatapoint.name("custom").value(1d).useAvgAggregation().build().getTimestamp());
+    assertNotNull("Timestamp should be set", StDatapoint.name("custom").value(1d).useAvgAggregation().build().getTimestamp());
 
     try {
-      SpmDatapoint.name("");
+      StDatapoint.name("");
       fail("Empty datapoint name is not allowed.");
     } catch (IllegalArgumentException e) { }
 
     try {
-      SpmDatapoint.name(null);
+      StDatapoint.name(null);
       fail("Null datapoint name is not allowed.");
     } catch (IllegalArgumentException e) { }
   }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -22,24 +22,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-class SpmSender {
-  private final SpmProperties properties;
+class DatapointsSender {
+  private final ClientProperties properties;
 
-  SpmSender(SpmProperties properties) {
+  DatapointsSender(ClientProperties properties) {
     this.properties = properties;
   }
 
-  void send(List<SpmDatapoint> datapoints) {
-    for (List<SpmDatapoint> partition : SpmUtil.partition(datapoints, SpmConfig.MAX_DATAPOINTS_PER_REQUEST)) {
-      properties.getExecutor().execute(new SenderThread(SpmRawFormat.serialize(partition), properties));
+  void send(List<StDatapoint> datapoints) {
+    for (List<StDatapoint> partition : Util.partition(datapoints, Config.MAX_DATAPOINTS_PER_REQUEST)) {
+      properties.getExecutor().execute(new SenderThread(RawFormat.serialize(partition), properties));
     }
   }
 
   private static final class SenderThread implements Runnable {
     private final String data;
-    private final SpmProperties properties;
+    private final ClientProperties properties;
 
-    private SenderThread(String data, SpmProperties properties) {
+    private SenderThread(String data, ClientProperties properties) {
       this.data = data;
       this.properties = properties;
     }
@@ -50,7 +50,7 @@ class SpmSender {
         URL receiverUrl = new URL(properties.getReceiverUrl() + "?token=" + properties.getToken());
         HttpURLConnection connection = (HttpURLConnection) receiverUrl.openConnection();
         connection.addRequestProperty("Content-Type", "text/plain");
-        connection.addRequestProperty("User-Agent", SpmConfig.USER_AGENT);
+        connection.addRequestProperty("User-Agent", Config.USER_AGENT);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         OutputStream os = null;
@@ -65,12 +65,12 @@ class SpmSender {
         }
 
         if (connection.getResponseCode() != 201) {
-          SpmLogger.getLogger().severe("Error while sending datapoints. " + connection.getResponseCode() + " " + connection.getResponseMessage() + ".");
+          StLogger.getLogger().severe("Error while sending datapoints. " + connection.getResponseCode() + " " + connection.getResponseMessage() + ".");
         }
       } catch (MalformedURLException e) {
-        SpmLogger.getLogger().severe("Error while sending datapoints:" + e);
+        StLogger.getLogger().severe("Error while sending datapoints:" + e);
       } catch (IOException e) {
-        SpmLogger.getLogger().severe("Error while sending datapoints:" + e);
+        StLogger.getLogger().severe("Error while sending datapoints:" + e);
       }
     }
   }

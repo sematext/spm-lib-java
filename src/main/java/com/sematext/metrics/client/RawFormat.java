@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sematext.spm.client;
+package com.sematext.metrics.client;
 
 import java.util.Iterator;
 import java.util.List;
 
-final class SpmRawFormat {
+final class RawFormat {
   private static final String DELIMITER = "\t";
   private static final char NEW_LINE = '\n';
 
-  private SpmRawFormat() { }
+  private RawFormat() { }
 
-  static String serialize(SpmDatapoint metric) {
+  static String serialize(StDatapoint metric) {
     StringBuilder builder = new StringBuilder(256)
         .append(metric.getTimestamp())
         .append(DELIMITER)
@@ -44,11 +44,11 @@ final class SpmRawFormat {
     return builder.toString();
   }
 
-  static String serialize(List<SpmDatapoint> metrics) {
+  static String serialize(List<StDatapoint> metrics) {
     if (metrics  == null) {
       throw new IllegalArgumentException("Metrics should be defined");
     }
-    Iterator<SpmDatapoint> iterator = metrics.iterator();
+    Iterator<StDatapoint> iterator = metrics.iterator();
     if (!iterator.hasNext()) {
       return "";
     }
