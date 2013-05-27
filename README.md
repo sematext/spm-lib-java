@@ -12,45 +12,54 @@ Initialize client at application initialization point. For web applications it c
 
 Create and send datapoints:
 
-    StDatapoint datapoint = StDatapoint.name("registrations")
-      .filter1("free-account").filter2("male").value(1d).aggType(AggType.SUM).build();
+    StDatapoint datapoint = StDatapoint.name("user registrations")
+      .filter1("account.type=free")
+      .filter2("user.gender=male")
+      .value(1d)
+      .aggType(AggType.SUM).build();
 
     SematextClient.client().send(datapoint);
 
 You can send send datapoints list too:
 
-    StDatapoint building1 = StDatapoint.name("coffee-consumed")
-      .filter1("building-1").filter2("machine-2").value(42d).aggType(AggType.SUM).build();
+    StDatapoint building1 = StDatapoint.name("coffee.coffee-consumed")
+      .filter1("floor=1")
+      .filter2("machine=2")
+      .value(42d)
+      .aggType(AggType.SUM).build();
 
     StDatapoint building2 = StDatapoint.name("coffee-consumed")
-      .filter1("building-2").filter2("machine-2").value(24d).aggType(AggType.SUM).build();
+      .filter1("floor=1")
+      .filter2("machine=2")
+      .value(77d)
+      .aggType(AggType.SUM).build();
 
     SematextClient.client().send(Arrays.asList(building1, building2));
 
 
 ## Configuration
 
-If you want to use different tokens for different applications, you can use `newInstance` factory method:
+To use different tokens for different applications, use `newInstance` factory method:
 
-    SematextClient jvmMetrics = SematextClient.newInstance("[jvm_app_token]");
+    SematextClient userMetrics = SematextClient.newInstance("[web_app_token]");
 
-    SematextClient solrMetrics = SematextClient.newInstance("[solr_app_token]");
+    SematextClient searchMetrics = SematextClient.newInstance("[search_app_token]");
 
-    jvmMetrics.send(jvmMetrics);
+    userMetrics.send(userMetrics);
     
-    solrMetrics.send(solrMetrics);
+    searchMetrics.send(searchMetrics);
 
-SpmClient uses `java.util.logging.Logger`to produce error messages, by default it turned off, but you can enable it (useful for troubleshooting):
+SpmClient uses `java.util.logging.Logger` for logging. Logging is disabled by default. To enable it:
 
     SematextClient.enableLogging();
 
-Behind scenes client uses `ExecutorService` to submit datapoints in background, by default used `Executors.newFixedThreadPool(4)`, but if you want, you can specify other:
+Behind the scenes `ExecutorService` is used to send data in background. `Executors.newFixedThreadPool(4)` is the default, but can be changed:
 
     SematextClient.newInstance("[token]", Executors.newCachedThreadPool());
 
 
 ## License
 
-Copyright 2013 Sematext International
+Copyright 2013 Sematext Group, Inc.
 
 Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
