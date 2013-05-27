@@ -41,12 +41,10 @@ You can send send datapoints list too:
 
 To use different tokens for different applications, use `newInstance` factory method:
 
-    SematextClient userMetrics = SematextClient.newInstance("[web_app_token]");
-
-    SematextClient searchMetrics = SematextClient.newInstance("[search_app_token]");
+    SematextClient userMetrics = SematextClient.newInstance("[elasticsearch_app_token]");
+    SematextClient searchMetrics = SematextClient.newInstance("[web_app_token]");
 
     userMetrics.send(userDatapoints);
-    
     searchMetrics.send(searchDatapoints);
 
 SpmClient uses `java.util.logging.Logger` for logging. Logging is disabled by default. To enable it:
