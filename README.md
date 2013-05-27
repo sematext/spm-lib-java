@@ -45,9 +45,9 @@ To use different tokens for different applications, use `newInstance` factory me
 
     SematextClient searchMetrics = SematextClient.newInstance("[search_app_token]");
 
-    userMetrics.send(userMetrics);
+    userMetrics.send(userDatapoints);
     
-    searchMetrics.send(searchMetrics);
+    searchMetrics.send(searchDatapoints);
 
 SpmClient uses `java.util.logging.Logger` for logging. Logging is disabled by default. To enable it:
 
