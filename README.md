@@ -41,9 +41,13 @@ You can send send datapoints list too:
 
 To use different tokens for different applications, use `newInstance` factory method:
 
+    // create clients
     SematextClient userMetrics = SematextClient.newInstance("[elasticsearch_app_token]");
     SematextClient searchMetrics = SematextClient.newInstance("[web_app_token]");
 
+    // create userDatapoints and searchDatapoints here
+
+    // send the data
     userMetrics.send(userDatapoints);
     searchMetrics.send(searchDatapoints);
 
