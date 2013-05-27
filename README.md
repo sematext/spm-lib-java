@@ -1,7 +1,7 @@
 sematext-metrics
 ============
 
-Java Library for talking to [SPM](http://sematext.com/spm/index.html) API
+Java Library for talking to [SPM](http://sematext.com/spm/index.html) API. 
 
 
 ## Quick start
@@ -59,6 +59,10 @@ Behind the scenes `ExecutorService` is used to send data in background. `Executo
 
     SematextClient.newInstance("[token]", Executors.newCachedThreadPool());
 
+
+## Further reading
+
+[Wiki page about custom metrics feature](https://sematext.atlassian.net/wiki/display/PUBSPM/Custom+Metrics).
 
 ## License
 
