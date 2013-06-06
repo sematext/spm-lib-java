@@ -1,4 +1,4 @@
-sematext-metrics
+sematext-metrics [![Build Status](https://travis-ci.org/sematext/sematext-metrics.png?branch=master)](https://travis-ci.org/sematext/sematext-metrics)
 ============
 
 Java Library for talking to [SPM](http://sematext.com/spm/index.html) API. 
