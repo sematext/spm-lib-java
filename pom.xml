@@ -8,6 +8,12 @@
   <name>sematext-metrics</name>
   <url>http://github.com/sematext/sematext-metrics</url>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -17,8 +23,8 @@
   </licenses>
 
   <scm>
-    <connection>git@github.com:sematext/sematext-metrics.git</connection>
-    <developerConnection>git@github.com:sematext/sematext-metrics.git</developerConnection>
+    <connection>scm:git:git@github.com:sematext/sematext-metrics.git</connection>
+    <developerConnection>scm:git:git@github.com:sematext/sematext-metrics.git</developerConnection>
     <url>git@github.com:sematext/sematext-metrics.git</url>
   </scm>
 
