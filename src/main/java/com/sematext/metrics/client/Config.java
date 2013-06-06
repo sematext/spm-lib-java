@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 final class Config {
   private static final String USER_AGENT_NAME = "sematext-metrics-java";
@@ -39,6 +40,11 @@ final class Config {
   }
 
   static ExecutorService newThreadPool() {
-    return Executors.newFixedThreadPool(4);
+    return Executors.newFixedThreadPool(4, new ThreadFactory() {
+      @Override
+      public Thread newThread(Runnable target) {
+        return new Thread(target, "sematext-client-sender");
+      }
+    });
   }
 }
