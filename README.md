@@ -1,7 +1,7 @@
 sematext-metrics [![Build Status](https://travis-ci.org/sematext/sematext-metrics.png?branch=master)](https://travis-ci.org/sematext/sematext-metrics)
 ============
 
-Java Library for talking to [SPM](http://sematext.com/spm/index.html) API. 
+Java library for talking to [SPM](http://sematext.com/spm/index.html) API for sending [Custom Metrics](https://sematext.atlassian.net/wiki/display/PUBSPM/Custom+Metrics).
 
 ## Quick start
 
