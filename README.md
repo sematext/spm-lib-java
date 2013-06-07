@@ -3,8 +3,15 @@ sematext-metrics [![Build Status](https://travis-ci.org/sematext/sematext-metric
 
 Java Library for talking to [SPM](http://sematext.com/spm/index.html) API. 
 
-
 ## Quick start
+
+Add maven dependency
+
+    <dependency>
+      <groupId>com.sematext</groupId>
+      <artifactId>sematext-metrics</artifactId>
+      <version>0.1</version>
+    </dependency>
 
 Initialize client at application initialization point. For web applications it can be ServletContextListener.
     
