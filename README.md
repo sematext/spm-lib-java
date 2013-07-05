@@ -27,7 +27,7 @@ Create and send datapoints:
 
     SematextClient.client().send(datapoint);
 
-You can send send datapoints list too:
+You can send several datapoints at once, too:
 
     StDatapoint building1 = StDatapoint.name("coffee.coffee-consumed")
       .filter1("floor=1")
