@@ -94,6 +94,14 @@ public class SematextClient {
   }
 
   /**
+   * Checks if client was initialized.
+   * @return {@code true} if client was initialized.
+   */
+  public static boolean isInitialized() {
+    return INSTANCE != null;
+  }
+
+  /**
    * Get client instance.
    * @return client
    * @throws IllegalStateException if client is not initialized yet.
