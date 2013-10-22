@@ -66,6 +66,10 @@ Behind the scenes `ExecutorService` is used to send data in background. `Executo
 
     SematextClient.newInstance("[token]", Executors.newCachedThreadPool());
 
+To send metrics to on-premises SPM deployment you can also configure endpoint by passing `ClientProperties` instance:
+
+    String endpoint = "http://spm-receiver.example.com/spm-receiver/custom/receive.raw";
+    SematextClient.newInstance(new ClientProperties("[token]", endpoint, null));
 
 ## Further reading
 
