@@ -19,10 +19,10 @@ package com.sematext.metrics.client;
  * <p>Represents datapoint, which contains next parameters:</p>.
  * <ul>
  *   <li><b>Timestamp</b> - timestamp in millis (required)</li>
- *   <li><b>Name</b> - metric's name. String of length <= 255 (required)</li>
- *   <li><b>Filter1</b> - metric's first filter value. String of length <= 255 (optional)</li>
- *   <li><b>Filter2</b> - metric's second filter value. String of length <= 255 (optional)</li>
- *   <li><b>Value</b> - value of datapoint. String of length <= 255 (required)</li>
+ *   <li><b>Name</b> - metric's name. String of length &lt;= 255 (required)</li>
+ *   <li><b>Filter1</b> - metric's first filter value. String of length &lt;= 255 (optional)</li>
+ *   <li><b>Filter2</b> - metric's second filter value. String of length &lt;= 255 (optional)</li>
+ *   <li><b>Value</b> - value of datapoint. String of length &lt;= 255 (required)</li>
  *   <li><b>Aggregation type</b> - aggregation type of datapoint. 'sum', 'min', 'max' or 'avg' (required)</li>
  * </ul>
  */

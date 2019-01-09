@@ -49,6 +49,38 @@
     </dependency>
   </dependencies>
 
+
+  <profiles>
+    <profile>
+      <id>sonatype-oss-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -67,6 +99,51 @@
           <version>1.0</version>
           <configuration>
             <keyname>sematext</keyname>
+          </configuration>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>1.6</version>
+          <extensions>true</extensions>
+          <configuration>
+            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <serverId>sonatype-nexus-staging</serverId>
           </configuration>
         </plugin>
       </plugins>
