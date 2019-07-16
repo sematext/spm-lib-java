@@ -1,3 +1,5 @@
+# This repo has been deprecated
+
 sematext-metrics [![Build Status](https://travis-ci.org/sematext/sematext-metrics.png?branch=master)](https://travis-ci.org/sematext/sematext-metrics)
 ============
 
